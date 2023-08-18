@@ -7,10 +7,11 @@ from ultralytics import YOLO
 import func_road
 import warning_person
 
-video_path = 'full_vid.mp4'
+video_path = os.path.join('videos_in', 'test_1.mp4')
+model_path = os.path.join('models', 'best_yolo8n.pt')
 
 cap = cv2.VideoCapture(video_path)
-model = YOLO('best_yolo8n.pt')
+model = YOLO(model_path)
 
 count = 0
 

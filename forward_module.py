@@ -3,8 +3,14 @@ import tensorflow as tf
 from forward_data.pspunet import pspunet
 from forward_data.display import create_mask
 import numpy as np
+import os
+
 
 skip_frame_count = 0
+IMG_WIDTH = 480
+IMG_HEIGHT = 272
+n_classes = 7
+model = pspunet((IMG_HEIGHT, IMG_WIDTH, 3), n_classes)
 
 
 def forward_looking(mode, frame):
@@ -12,7 +18,7 @@ def forward_looking(mode, frame):
 
     skip_frame_count += 1
 
-    if 0 < skip_frame_count % 10:
+    if skip_frame_count % 5 != 0:
         return
 
     gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -26,15 +32,12 @@ def forward_looking(mode, frame):
             print(e)
 
     MODE = mode
-    IMG_WIDTH = 480
-    IMG_HEIGHT = 272
-    n_classes = 7
 
     blue_count = 0
     red_count = 0
 
-    model = pspunet((IMG_HEIGHT, IMG_WIDTH, 3), n_classes)
-    model.load_weights("models\\forward_model.h5")
+    model_path = os.path.join('models', 'forward_model.h5')
+    model.load_weights(model_path)
 
     def region_of_interest(img):
 
@@ -58,7 +61,6 @@ def forward_looking(mode, frame):
 
     frame = frame[tf.newaxis, ...]
     frame = frame/255
-
     pre = model.predict(frame)
     pre = create_mask(pre).numpy()
     frame2 = frame / 2

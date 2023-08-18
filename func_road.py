@@ -3,18 +3,21 @@ import torch
 from torchvision import transforms
 import time
 import cv2
+import os
 
+model_path = os.path.join('models', 'road_model.pt')
 device = 'cpu'
-model = torch.load('model.pt', map_location=device)
+model = torch.load(model_path, map_location=device)
 model.eval()
 
 transform_test = transforms.Compose([
-    transforms.Resize((224,224)),
+    transforms.Resize((224, 224)),
     transforms.ToTensor(),
-    transforms.Normalize([0.485,0.456,0.406],[0.229,0.224,0.225])
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
-name = ['Not road','Road']
+name = ['Not road', 'Road']
+
 
 def road(image):
     y, x = image.shape[0], image.shape[1]
@@ -26,4 +29,4 @@ def road(image):
         outputs = model(image)
         _, preds = torch.max(outputs, 1)
         return name[preds[0].int()]
-        #print(name[preds[0].int()])
+        # print(name[preds[0].int()])
