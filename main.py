@@ -22,7 +22,7 @@ while True:
     deep_frame = deepsort_start(yolo_frame, frame)  # yolo, frame
 
     # 전방주시
-    forward_looking(0, deep_frame)  # mode, frame
+    # forward_looking(0, deep_frame)  # mode, frame
 
     # 로드워닝
     count += 1
