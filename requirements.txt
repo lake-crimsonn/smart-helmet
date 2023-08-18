@@ -2,3 +2,4 @@
 deep-sort-realtime
 ultralytics
 opencv-python
+tensorflow
