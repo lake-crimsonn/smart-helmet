@@ -1,11 +1,9 @@
-'''
-    딥소트 적용 파일
-'''
-
 import os
 import random
 import cv2
 from deep_sort_realtime.deepsort_tracker import DeepSort
+
+
 colors = [(random.randint(0, 255), random.randint(0, 255),
            random.randint(0, 255)) for j in range(10)]
 
@@ -16,10 +14,7 @@ def deepsort_start(yolo_frame, frame):
 
     tracker = DeepSort(max_age=3)
 
-    # 박스 색상 10개
-
-    # 스코어 임계값
-    detection_threshold = 0.5
+    detection_threshold = 0.5  # 스코어 임계값
 
     results = yolo_frame
 
@@ -37,9 +32,6 @@ def deepsort_start(yolo_frame, frame):
         tracks = tracker.update_tracks(
             detections, frame=frame)  # 딥소트 알고리즘 적용
         for track in tracks:
-            # if not track.is_confirmed():
-            #     continue
-            # print('asdfasdfsadasdf')
 
             track_id = track.track_id  # 딥소트 알고리즘이 적용된 오브젝트의 아이디
             ltrb = track.to_ltrb()  # left-top, right-bottom

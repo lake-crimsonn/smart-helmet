@@ -1,5 +1,7 @@
 *.pt
 *.h5
-videos_in/
-videos_out/
-models/
+videos_in/*
+videos_out/*
+models/*
+__pycache__/
+*.py[cod]
