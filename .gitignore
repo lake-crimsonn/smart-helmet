@@ -2,6 +2,7 @@
 *.h5
 __pycache__/
 *.py[cod]
-models/
-videos_in/
-videos_out/
+models/*.h5
+models/*.pt
+videos_in/*.mp4
+videos_out/*.mp4
