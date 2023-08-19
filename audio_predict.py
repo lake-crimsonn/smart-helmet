@@ -1,7 +1,5 @@
 import os
-import pandas as pd
 import numpy as np
-from tqdm import tqdm
 import librosa.display
 import matplotlib.pyplot as plt
 
@@ -10,7 +8,7 @@ from torchvision import transforms
 from PIL import Image
 
 # 주행음 1 충돌음 0
-audiofile = './자전거사고_test.mp3'
+# audiofile = './자전거사고_test.mp3'
 def draw_melspectogram(audiofile):
     # 오디오 불러오기
     y, sr = librosa.load(audiofile)
@@ -49,9 +47,9 @@ def audio_predict(audiofile, model):
         outputs = model(image)
         _, pred = torch.max(outputs.data,1)
 
-    print(pred.item())
+    return pred.item()
 
-
-if __name__ == '__main__':
-    audio_predict(audiofile, model)
+#
+# if __name__ == '__main__':
+#     audio_predict(audiofile, model)
 
